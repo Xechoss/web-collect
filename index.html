@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同意或不同意</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .message {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .agree-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .disagree-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .happy-message {
+            font-size: 32px;
+            color: #e91e63;
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji" id="emoji">🥺</div>
+        <div class="message" id="message">你愿意和我在一起吗？</div>
+        <div class="buttons" id="buttons">
+            <button class="btn agree-btn" id="agreeBtn" onclick="handleAgree()">同意</button>
+            <button class="btn disagree-btn" onclick="handleDisagree()">不同意</button>
+        </div>
+        <div class="happy-message" id="happyMessage">我就知道你会同意的！❤️</div>
+    </div>
+
+    <script>
+        let disagreeCount = 0;
+        const messages = [
+            "哎呀，你确定吗？",
+            "呜呜，再考虑一下吧！",
+            "真的不再想想吗？求你了~",
+            "你忍心拒绝我吗？好难过啊...",
+            "这是最后的机会了！拜托了！",
+            "呜呜呜，不要这样嘛~",
+            "人家真的很想和你在一起呢...",
+            "求求你答应我好不好？",
+            "没有你我会很伤心的...",
+            "真的不能再考虑一下下吗？"
+        ];
+
+        const emojis = [
+            "🥺",  // 可怜巴巴
+            "😢",  // 哭泣
+            "😭",  // 大哭
+            "😫",  // 痛苦
+            "😩",  // 疲惫
+            "😔",  // 难过
+            "😞",  // 失望
+            "😥",  // 伤心
+            "😪",  // 困倦
+            "😓"   // 汗颜
+        ];
+
+        function handleDisagree() {
+            const message = document.getElementById('message');
+            const agreeBtn = document.getElementById('agreeBtn');
+            const emoji = document.getElementById('emoji');
+            
+            // 更新消息和表情
+            if (disagreeCount < messages.length) {
+                message.textContent = messages[disagreeCount];
+                emoji.textContent = emojis[disagreeCount];
+                disagreeCount++;
+            }
+            
+            // 增加同意按钮的大小
+            const currentSize = parseInt(window.getComputedStyle(agreeBtn).fontSize);
+            agreeBtn.style.fontSize = (currentSize + 20) + 'px';
+        }
+
+        function handleAgree() {
+            const buttons = document.getElementById('buttons');
+            const message = document.getElementById('message');
+            const happyMessage = document.getElementById('happyMessage');
+            const emoji = document.getElementById('emoji');
+            
+            // 隐藏按钮和原始消息
+            buttons.style.display = 'none';
+            message.style.display = 'none';
+            
+            // 更新表情为开心的表情
+            emoji.textContent = "🥰";
+            
+            // 显示幸福的消息
+            happyMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html> 
